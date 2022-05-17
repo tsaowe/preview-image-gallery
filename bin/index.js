@@ -10,12 +10,12 @@ const port = getRandomPort();
 try {
   (async () => {
     const lastArgv = process.argv[process.argv.length - 1];
-    const hasLastArgv = !lastArgv.endsWith("index.js");
-    let realPreviewPath = hasLastArgv ? lastArgv : process.cwd();
+    const hasLastArgv = !lastArgv.endsWith("preview-image-gallery");
+    let realPreviewPath = hasLastArgv ? lastArgv : process.env.PWD;
     const files = await listAllImages(realPreviewPath);
     const sortedFiles = files
       .sort((a, b) => a.size - b.size)
-      .map((item, index) => ({ ...item, src: index }));
+      .map((item, index) => ({ ...item, src: item.shortPath }));
     app.get("/", (req, res) => {
       res.send(`
         <html lang="zh">
@@ -39,9 +39,8 @@ try {
         </html>
       `);
     });
-
     sortedFiles.forEach((file, index) => {
-      app.get(`/${index}`, (req, res) => {
+      app.get(`${file.src}`, (req, res) => {
         res.sendFile(file.filePath);
       });
     });

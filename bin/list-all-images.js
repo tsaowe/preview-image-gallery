@@ -1,5 +1,6 @@
 const fs = require("fs");
 const glob = require("glob");
+const path = require("path");
 const sizeOf = require('image-size')
 
 
@@ -30,7 +31,17 @@ const removePrefixOfPath = (prefix, path) => {
   return path.replace(prefix, "");
 };
 
+const absolutePath = (filePath)=>{
+  if(filePath.startsWith("/")){
+    return filePath;
+  }
+  return `${process.cwd()}/${filePath}`;
+}
+
 function listAllImages(folderPath) {
+  if(!folderPath.startsWith("/")){
+    folderPath = path.resolve(folderPath);
+  }
   return new Promise((resolve, reject) => {
     const extension = `${folderPath}/**/*.{${imageExtensions.join(",")}}`;
     glob(
@@ -44,9 +55,11 @@ function listAllImages(folderPath) {
           reject(err);
         } else {
           resolve(files.map(getFileInfoByPath).map(item=>{
+            const absPath = absolutePath(item.filePath)
             return {
               ...item,
-              shortPath: removePrefixOfPath(folderPath, item.filePath),
+              filePath: absPath,
+              shortPath: removePrefixOfPath(folderPath, absPath),
             }
           }));
         }
