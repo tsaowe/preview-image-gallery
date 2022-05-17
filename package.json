@@ -1,6 +1,6 @@
 {
   "name": "preview-image-gallery",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "display your existing image as gallery by given folder",
   "main": "src/index.js",
   "repository": "git@github.com:tsaowe/preview-image-gallery.git",
