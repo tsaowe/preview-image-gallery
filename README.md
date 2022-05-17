@@ -7,10 +7,10 @@
 ```
 
 //  case 1
-npx preview-images-gallery src
+npx preview-image-gallery src
 
 //  case 2, current folder
-npx preview-images-gallery 
+npx preview-image-gallery 
 ```
 
 

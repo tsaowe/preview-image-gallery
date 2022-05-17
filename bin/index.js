@@ -12,11 +12,6 @@ try {
     const lastArgv = process.argv[process.argv.length - 1];
     const hasLastArgv = !lastArgv.endsWith("index.js");
     let realPreviewPath = hasLastArgv ? lastArgv : process.cwd();
-    // if (!folder.endsWith("src")) {
-    //   realPreviewPath = path.join(folder, "src");
-    // } else {
-    //   realPreviewPath = folder;
-    // }
     const files = await listAllImages(realPreviewPath);
     const sortedFiles = files
       .sort((a, b) => a.size - b.size)
