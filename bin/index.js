@@ -17,24 +17,44 @@ try {
       .sort((a, b) => a.size - b.size)
       .map((item, index) => ({ ...item, src: item.shortPath }));
     app.get("/", (req, res) => {
+      const title = realPreviewPath.startsWith("/")
+        ? realPreviewPath
+        : path.resolve(realPreviewPath);
       res.send(`
         <html lang="zh">
           <head>
             <style>${readFileAsString(
               path.join(__dirname, "assets", "style.css")
             )}</style>
-            <title>${realPreviewPath}</title>
+            <title>${title}</title>
           </head>
           <body><div id="container"></div></body>
           <script type="module">                           
             ${readFileAsString(path.join(__dirname, "assets", "javascript.js"))}
-            const element = document.querySelector('#container');
-            const photoGrid = new PhotoGridBox(element, ${JSON.stringify(
-              sortedFiles
-            )}, (e, item)=>{
-              console.log(item);
-              open(item.src);
-            },()=>'caowei', 20, 20);          
+            const element = document.querySelector('#container');                                  
+            const photoGrid = new PhotoGridBox(element, ${JSON.stringify(sortedFiles)}, (e, item)=>{             
+              const classname = e.target.className;
+              switch (classname) {
+                case 'new':
+                  open(item.src);
+                  break;
+                case 'copy':
+                  navigator.clipboard.writeText(JSON.stringify(item, '', 2));
+                  window.createNotification({
+                    closeOnClick: false,
+                    displayCloseButton: true,
+                    positionClass: 'nfc-top-right',
+                    showDuration: 5000,
+                    theme: 'success',
+                  })({
+                    title: 'Copy Success',
+                    message: JSON.stringify(item, '', 2),                   
+                  });
+                  break;
+                default:
+                  break;
+              }
+            },()=>'<div class="panel"><button class="new">open in new tab</button><button class="copy">copy info</button></div>', 20, 20);          
           </script>
         </html>
       `);
