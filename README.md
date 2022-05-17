@@ -1,22 +1,22 @@
 ### what does this package do?
 > list all your images in given directory and open a browser with them
+> this is a cli tool not a web app
 
 
 
 ### example usage
 ```
-
-//  case 1
 npx preview-image-gallery src
-
-//  case 2, current folder
-npx preview-image-gallery 
+ 
 ```
-
-
-### that's all
-
 
 
 ### thanks
 - [photo-grid-box-vanilla](https://www.cssscript.com/flickr-like-photo-grid/)
+
+
+### images
+![picture](example.jpg)
+
+
+### that's all
