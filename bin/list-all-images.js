@@ -13,8 +13,8 @@ const getImageDimension = (path) => {
   const lowerCasedExtension = extension.toLowerCase();
   if (imageWithNoSize.includes(lowerCasedExtension)) {
     return {
-      width: 0,
-      height: 0
+      width: 'svg',
+      height: 'svg'
     };
   }
   return sizeOf(path);

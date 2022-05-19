@@ -130,6 +130,17 @@ PhotoGridBox.prototype._render = function () {
     var top = self.rowHeight * rowIndex + rowGap
     var left = tempAccumulateWidth
     element.style.backgroundImage = 'url('+ imgSrc +')'
+    element.style.backgroundColor = 'rgba(0,0,0,0.3)';
+    element.style.backgroundSize = 'auto'
+    element.style.borderRadius = '10px'
+    element.style.fontSize = '12px'
+    if(/svg$/i.test(imgSrc)) {
+      element.style.backgroundSize = 'contain'
+      element.style.boxShadow = '0 0 20px #342056'
+      element.style.transform = 'scale(0.85)'
+      element.style.border = '1px solid #342056'
+      element.style.fontSize = '14px'
+    }
     element.className = 'photo-block'
     element.style.width = imgWidth + 'px'
     element.style.height = imgHeight + 'px'
@@ -422,3 +433,63 @@ PhotoGridBox.prototype.destroy = function () {
   }
 }, function (t, n) {
 }]);
+
+
+/**************************
+ *  End of File
+ **************************/
+const formatDateToYYYYMMDDHHMMSS = (date)=>{
+    let d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    let year = d.getFullYear();
+    let hour = '' + d.getHours();
+    let minute = '' + d.getMinutes();
+    let second = '' + d.getSeconds();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    if (hour.length < 2) hour = '0' + hour;
+    if (minute.length < 2) minute = '0' + minute;
+    if (second.length < 2) second = '0' + second;
+
+    return [year, month, day].join('-') + ' ' + [hour, minute, second].join(':');
+}
+const element = document.querySelector('#container');
+new PhotoGridBox(element, window.sortedFiles, (e, item) => {
+    const classname = e.target.className;
+    switch (classname) {
+      case 'new':
+        open(item.src);
+        break;
+      case 'copy':
+        navigator.clipboard.writeText(JSON.stringify(item, '', 2));
+        window.createNotification({
+          closeOnClick: false,
+          displayCloseButton: true,
+          positionClass: 'nfc-top-right',
+          showDuration: 5000,
+          theme: 'success',
+        })({
+          title: 'Copy Success',
+          message: JSON.stringify(item, '', 2),
+        });
+        break;
+      default:
+        break;
+    }
+  }, (item) => `
+<div class="panel">
+  <div>
+    <span class="new">open</span>
+    <span class="copy">copy</span>
+  </div>
+  <div>
+    <span>${item.type || 'svg'}</span>
+    <span>${item.sizeSummary}</span>
+    <span>${item.width} x ${item.height}</span>
+    <span>${item.fileName}</span>
+    <span>${formatDateToYYYYMMDDHHMMSS(item.modifyDate)}</span>
+  </div>
+</div>`,
+  10, 10);
