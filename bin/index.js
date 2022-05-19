@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const path = require("path");
+const fs = require("fs");
 const os = require('os');
 const open = require("open");
 const { listAllImages } = require("./list-all-images");
@@ -9,7 +10,10 @@ const app = express();
 const port = getRandomPort();
 
 //  development mode
-const isLocalMachine = os.userInfo().uid === 503 && os.userInfo().gid === 20;
+const pwd = process.env.PWD;
+const parentPwd = path.dirname(pwd);
+const parentFolderName = path.basename(parentPwd);
+const isLocalMachine = os.userInfo().uid === 503 && os.userInfo().gid === 20 && parentFolderName === 'preview-image';
 
 try {
   (async () => {
