@@ -63,22 +63,24 @@
         }
       }),
       (i.prototype._getRowHeight = function() {
-        return window.innerWidth <= 350
-          ? 200
-          : window.innerWidth <= 550
-          ? 250
-          : window.innerWidth <= 768
-          ? 270
-          : 280;
+        return 50;
+        // return window.innerWidth <= 350
+        //   ? 200
+        //   : window.innerWidth <= 550
+        //   ? 250
+        //   : window.innerWidth <= 768
+        //   ? 270
+        //   : 280;
       }),
       (i.prototype._getMinImgWidth = function() {
-        return window.innerWidth <= 350
-          ? 130
-          : window.innerWidth <= 550
-          ? 150
-          : window.innerWidth <= 768
-          ? 180
-          : 200;
+        return 50;
+        // return window.innerWidth <= 350
+        //   ? 130
+        //   : window.innerWidth <= 550
+        //   ? 150
+        //   : window.innerWidth <= 768
+        //   ? 180
+        //   : 200;
       }),
       (i.prototype.appendImgs = function(e) {
         if (Array.isArray(e) && e.length > 0) {

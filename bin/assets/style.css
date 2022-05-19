@@ -5,6 +5,22 @@
     position: relative;
 }
 
+.photo-block__panel {
+    background: rgba(0,0,0,0.15);
+}
+
+.photo-block .panel {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+.photo-block .panel  span {
+    cursor: pointer;
+    padding: 0 5px;
+    color: white;
+}
+
 
 .middle {
     transition: .5s ease;

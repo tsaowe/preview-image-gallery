@@ -54,7 +54,7 @@ try {
                 default:
                   break;
               }
-            },()=>'<div class="panel"><button class="new">open in new tab</button><button class="copy">copy info</button></div>', 20, 20);          
+            },()=>'<div class="panel"><span class="new">open</span><span class="copy">copy</span></div>', 10, 10);          
           </script>
         </html>
       `);

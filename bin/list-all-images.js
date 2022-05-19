@@ -5,9 +5,18 @@ const sizeOf = require('image-size')
 
 
 const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "svg"];
+const imageWithNoSize = ["svg"];
 
 
 const getImageDimension = (path) => {
+  const extension = path.split(".").pop();
+  const lowerCasedExtension = extension.toLowerCase();
+  if (imageWithNoSize.includes(lowerCasedExtension)) {
+    return {
+      width: 0,
+      height: 0
+    };
+  }
   return sizeOf(path);
 };
 
