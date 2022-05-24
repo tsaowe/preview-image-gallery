@@ -14,5 +14,13 @@
     "glob": "^8.0.3",
     "image-size": "^1.0.1",
     "open": "^8.4.0"
-  }
+  },
+  "keywords": [
+    "image",
+    "gallery",
+    "file system",
+    "preview",
+    "image-gallery",
+    "express"
+  ]
 }
