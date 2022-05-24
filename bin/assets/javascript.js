@@ -131,7 +131,7 @@ PhotoGridBox.prototype._render = function () {
     var left = tempAccumulateWidth
     element.style.backgroundImage = 'url('+ imgSrc +')'
     element.style.backgroundColor = 'rgba(0,0,0,0.3)';
-    element.style.backgroundSize = 'auto'
+    element.style.backgroundSize = '100%'
     element.style.borderRadius = '10px'
     element.style.fontSize = '12px'
     if(/svg$/i.test(imgSrc)) {
